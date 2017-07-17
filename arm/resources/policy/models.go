@@ -18,90 +18,89 @@ package policy
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-    "github.com/Azure/go-autorest/autorest"
-    "github.com/Azure/go-autorest/autorest/to"
-    "net/http"
+	"github.com/Azure/go-autorest/autorest"
+	"github.com/Azure/go-autorest/autorest/to"
+	"net/http"
 )
 
 // Type enumerates the values for type.
 type Type string
 
 const (
-    // BuiltIn specifies the built in state for type.
-    BuiltIn Type = "BuiltIn"
-    // Custom specifies the custom state for type.
-    Custom Type = "Custom"
-    // NotSpecified specifies the not specified state for type.
-    NotSpecified Type = "NotSpecified"
+	// BuiltIn specifies the built in state for type.
+	BuiltIn Type = "BuiltIn"
+	// Custom specifies the custom state for type.
+	Custom Type = "Custom"
+	// NotSpecified specifies the not specified state for type.
+	NotSpecified Type = "NotSpecified"
 )
 
 // Assignment is the policy definition.
 type Assignment struct {
-    autorest.Response `json:"-"`
-    *AssignmentProperties `json:"properties,omitempty"`
-    ID *string `json:"id,omitempty"`
-    Type *string `json:"type,omitempty"`
-    Name *string `json:"name,omitempty"`
+	autorest.Response     `json:"-"`
+	*AssignmentProperties `json:"properties,omitempty"`
+	ID                    *string `json:"id,omitempty"`
+	Type                  *string `json:"type,omitempty"`
+	Name                  *string `json:"name,omitempty"`
 }
 
 // AssignmentListResult is list of policy assignments.
 type AssignmentListResult struct {
-    autorest.Response `json:"-"`
-    Value *[]Assignment `json:"value,omitempty"`
-    NextLink *string `json:"nextLink,omitempty"`
+	autorest.Response `json:"-"`
+	Value             *[]Assignment `json:"value,omitempty"`
+	NextLink          *string       `json:"nextLink,omitempty"`
 }
 
 // AssignmentListResultPreparer prepares a request to retrieve the next set of results. It returns
 // nil if no more results exist.
 func (client AssignmentListResult) AssignmentListResultPreparer() (*http.Request, error) {
-    if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
-        return nil, nil
-    }
-    return autorest.Prepare(&http.Request{},
-        autorest.AsJSON(),
-        autorest.AsGet(),
-        autorest.WithBaseURL(to.String(client.NextLink)));
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
+		return nil, nil
+	}
+	return autorest.Prepare(&http.Request{},
+		autorest.AsJSON(),
+		autorest.AsGet(),
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
 // AssignmentProperties is the policy assignment properties.
 type AssignmentProperties struct {
-    DisplayName *string `json:"displayName,omitempty"`
-    PolicyDefinitionID *string `json:"policyDefinitionId,omitempty"`
-    Scope *string `json:"scope,omitempty"`
+	DisplayName        *string `json:"displayName,omitempty"`
+	PolicyDefinitionID *string `json:"policyDefinitionId,omitempty"`
+	Scope              *string `json:"scope,omitempty"`
 }
 
 // Definition is the policy definition.
 type Definition struct {
-    autorest.Response `json:"-"`
-    *DefinitionProperties `json:"properties,omitempty"`
-    ID *string `json:"id,omitempty"`
-    Name *string `json:"name,omitempty"`
+	autorest.Response     `json:"-"`
+	*DefinitionProperties `json:"properties,omitempty"`
+	ID                    *string `json:"id,omitempty"`
+	Name                  *string `json:"name,omitempty"`
 }
 
 // DefinitionListResult is list of policy definitions.
 type DefinitionListResult struct {
-    autorest.Response `json:"-"`
-    Value *[]Definition `json:"value,omitempty"`
-    NextLink *string `json:"nextLink,omitempty"`
+	autorest.Response `json:"-"`
+	Value             *[]Definition `json:"value,omitempty"`
+	NextLink          *string       `json:"nextLink,omitempty"`
 }
 
 // DefinitionListResultPreparer prepares a request to retrieve the next set of results. It returns
 // nil if no more results exist.
 func (client DefinitionListResult) DefinitionListResultPreparer() (*http.Request, error) {
-    if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
-        return nil, nil
-    }
-    return autorest.Prepare(&http.Request{},
-        autorest.AsJSON(),
-        autorest.AsGet(),
-        autorest.WithBaseURL(to.String(client.NextLink)));
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
+		return nil, nil
+	}
+	return autorest.Prepare(&http.Request{},
+		autorest.AsJSON(),
+		autorest.AsGet(),
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
 // DefinitionProperties is the policy definition properties.
 type DefinitionProperties struct {
-    PolicyType Type `json:"policyType,omitempty"`
-    DisplayName *string `json:"displayName,omitempty"`
-    Description *string `json:"description,omitempty"`
-    PolicyRule *map[string]interface{} `json:"policyRule,omitempty"`
+	PolicyType  Type                    `json:"policyType,omitempty"`
+	DisplayName *string                 `json:"displayName,omitempty"`
+	Description *string                 `json:"description,omitempty"`
+	PolicyRule  *map[string]interface{} `json:"policyRule,omitempty"`
 }
-

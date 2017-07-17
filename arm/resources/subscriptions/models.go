@@ -18,114 +18,113 @@ package subscriptions
 // Changes may cause incorrect behavior and will be lost if the code is regenerated.
 
 import (
-    "github.com/Azure/go-autorest/autorest"
-    "github.com/Azure/go-autorest/autorest/to"
-    "net/http"
+	"github.com/Azure/go-autorest/autorest"
+	"github.com/Azure/go-autorest/autorest/to"
+	"net/http"
 )
 
 // SpendingLimit enumerates the values for spending limit.
 type SpendingLimit string
 
 const (
-    // CurrentPeriodOff specifies the current period off state for spending limit.
-    CurrentPeriodOff SpendingLimit = "CurrentPeriodOff"
-    // Off specifies the off state for spending limit.
-    Off SpendingLimit = "Off"
-    // On specifies the on state for spending limit.
-    On SpendingLimit = "On"
+	// CurrentPeriodOff specifies the current period off state for spending limit.
+	CurrentPeriodOff SpendingLimit = "CurrentPeriodOff"
+	// Off specifies the off state for spending limit.
+	Off SpendingLimit = "Off"
+	// On specifies the on state for spending limit.
+	On SpendingLimit = "On"
 )
 
 // State enumerates the values for state.
 type State string
 
 const (
-    // Deleted specifies the deleted state for state.
-    Deleted State = "Deleted"
-    // Disabled specifies the disabled state for state.
-    Disabled State = "Disabled"
-    // Enabled specifies the enabled state for state.
-    Enabled State = "Enabled"
-    // PastDue specifies the past due state for state.
-    PastDue State = "PastDue"
-    // Warned specifies the warned state for state.
-    Warned State = "Warned"
+	// Deleted specifies the deleted state for state.
+	Deleted State = "Deleted"
+	// Disabled specifies the disabled state for state.
+	Disabled State = "Disabled"
+	// Enabled specifies the enabled state for state.
+	Enabled State = "Enabled"
+	// PastDue specifies the past due state for state.
+	PastDue State = "PastDue"
+	// Warned specifies the warned state for state.
+	Warned State = "Warned"
 )
 
 // ListResult is subscription list operation response.
 type ListResult struct {
-    autorest.Response `json:"-"`
-    Value *[]Subscription `json:"value,omitempty"`
-    NextLink *string `json:"nextLink,omitempty"`
+	autorest.Response `json:"-"`
+	Value             *[]Subscription `json:"value,omitempty"`
+	NextLink          *string         `json:"nextLink,omitempty"`
 }
 
 // ListResultPreparer prepares a request to retrieve the next set of results. It returns
 // nil if no more results exist.
 func (client ListResult) ListResultPreparer() (*http.Request, error) {
-    if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
-        return nil, nil
-    }
-    return autorest.Prepare(&http.Request{},
-        autorest.AsJSON(),
-        autorest.AsGet(),
-        autorest.WithBaseURL(to.String(client.NextLink)));
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
+		return nil, nil
+	}
+	return autorest.Prepare(&http.Request{},
+		autorest.AsJSON(),
+		autorest.AsGet(),
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
 
 // Location is location information.
 type Location struct {
-    ID *string `json:"id,omitempty"`
-    SubscriptionID *string `json:"subscriptionId,omitempty"`
-    Name *string `json:"name,omitempty"`
-    DisplayName *string `json:"displayName,omitempty"`
-    Latitude *string `json:"latitude,omitempty"`
-    Longitude *string `json:"longitude,omitempty"`
+	ID             *string `json:"id,omitempty"`
+	SubscriptionID *string `json:"subscriptionId,omitempty"`
+	Name           *string `json:"name,omitempty"`
+	DisplayName    *string `json:"displayName,omitempty"`
+	Latitude       *string `json:"latitude,omitempty"`
+	Longitude      *string `json:"longitude,omitempty"`
 }
 
 // LocationListResult is location list operation response.
 type LocationListResult struct {
-    autorest.Response `json:"-"`
-    Value *[]Location `json:"value,omitempty"`
+	autorest.Response `json:"-"`
+	Value             *[]Location `json:"value,omitempty"`
 }
 
 // Policies is subscription policies.
 type Policies struct {
-    LocationPlacementID *string `json:"locationPlacementId,omitempty"`
-    QuotaID *string `json:"quotaId,omitempty"`
-    SpendingLimit SpendingLimit `json:"spendingLimit,omitempty"`
+	LocationPlacementID *string       `json:"locationPlacementId,omitempty"`
+	QuotaID             *string       `json:"quotaId,omitempty"`
+	SpendingLimit       SpendingLimit `json:"spendingLimit,omitempty"`
 }
 
 // Subscription is subscription information.
 type Subscription struct {
-    autorest.Response `json:"-"`
-    ID *string `json:"id,omitempty"`
-    SubscriptionID *string `json:"subscriptionId,omitempty"`
-    DisplayName *string `json:"displayName,omitempty"`
-    State State `json:"state,omitempty"`
-    SubscriptionPolicies *Policies `json:"subscriptionPolicies,omitempty"`
-    AuthorizationSource *string `json:"authorizationSource,omitempty"`
+	autorest.Response    `json:"-"`
+	ID                   *string   `json:"id,omitempty"`
+	SubscriptionID       *string   `json:"subscriptionId,omitempty"`
+	DisplayName          *string   `json:"displayName,omitempty"`
+	State                State     `json:"state,omitempty"`
+	SubscriptionPolicies *Policies `json:"subscriptionPolicies,omitempty"`
+	AuthorizationSource  *string   `json:"authorizationSource,omitempty"`
 }
 
 // TenantIDDescription is tenant Id information.
 type TenantIDDescription struct {
-    ID *string `json:"id,omitempty"`
-    TenantID *string `json:"tenantId,omitempty"`
+	ID       *string `json:"id,omitempty"`
+	TenantID *string `json:"tenantId,omitempty"`
 }
 
 // TenantListResult is tenant Ids information.
 type TenantListResult struct {
-    autorest.Response `json:"-"`
-    Value *[]TenantIDDescription `json:"value,omitempty"`
-    NextLink *string `json:"nextLink,omitempty"`
+	autorest.Response `json:"-"`
+	Value             *[]TenantIDDescription `json:"value,omitempty"`
+	NextLink          *string                `json:"nextLink,omitempty"`
 }
 
 // TenantListResultPreparer prepares a request to retrieve the next set of results. It returns
 // nil if no more results exist.
 func (client TenantListResult) TenantListResultPreparer() (*http.Request, error) {
-    if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
-        return nil, nil
-    }
-    return autorest.Prepare(&http.Request{},
-        autorest.AsJSON(),
-        autorest.AsGet(),
-        autorest.WithBaseURL(to.String(client.NextLink)));
+	if client.NextLink == nil || len(to.String(client.NextLink)) <= 0 {
+		return nil, nil
+	}
+	return autorest.Prepare(&http.Request{},
+		autorest.AsJSON(),
+		autorest.AsGet(),
+		autorest.WithBaseURL(to.String(client.NextLink)))
 }
-
